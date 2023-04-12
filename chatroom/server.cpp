@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     // int port = atoi(argv[2]);
 
     const char* ip = "192.168.152.128";
-    int port = 7777;
+    int port = 6666;
 
     int ret = 0;
     struct sockaddr_in address;

@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     // int port = atoi(argv[2]);
 
     const char* ip = "192.168.152.128";
-    int port = 7777;
+    int port = 6666;
 
     struct sockaddr_in server_address;
     bzero(&server_address, sizeof(server_address));
