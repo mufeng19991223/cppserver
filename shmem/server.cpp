@@ -189,7 +189,7 @@ int run_child(int idx, client_data* users, char* share_mem)
 int main(int argc, char* argv[])
 {
     const char* ip = "192.168.152.128";
-    int port = 6666;
+    int port = 3333;
     int ret = 0;
 
     struct sockaddr_in address;
@@ -202,7 +202,7 @@ int main(int argc, char* argv[])
     assert(listenfd >= 0);
 
     ret = bind(listenfd, (struct sockaddr*)&address, sizeof(address));
-    setsockopt(listenfd, SOL_SOCKET, SO_REUSEPORT, &reuse, sizeof(reuse));
+    setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
     assert( ret != -1);
 
     ret = listen(listenfd, 5);

@@ -19,8 +19,8 @@ int main(int argc, char* argv[])
     // int port = atoi(argv[2]);
 
     const char* ip = "192.168.152.128";
-    int port = 6666;
-
+    int port = 4444;
+    int reuse = 1;
     struct sockaddr_in server_address;
     bzero(&server_address, sizeof(server_address));
     server_address.sin_family = AF_INET;
