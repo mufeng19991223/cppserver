@@ -131,8 +131,8 @@ int run_child(int idx, client_data* users, char* share_mem)
             if ((sockfd == connfd) && (events[i].events & EPOLLIN))
             {
                 memset(share_mem + idx * BUFFER_SIZE, '\0', BUFFER_SIZE);
-                /* 将客户数据读取到对应得读缓存中。该读缓存是共享内存的一段，它开始于idx*BUFFER_SIZE处，
-                    长度为BUFFER_SIZE字节。因此，各个客户连接读缓存是共享的*/
+                /* 将客户数据读取到对应的读缓存中。该读缓存是共享内存的一段，它开始于idx*BUFFER_SIZE处，
+                    长度为BUFFER_SIZE字节。因此，各个客户连接读缓存是共享的 */
                 ret = recv(connfd, share_mem + idx * BUFFER_SIZE, BUFFER_SIZE - 1, 0);
                 if (ret < 0)
                 {
@@ -279,12 +279,10 @@ int main(int argc, char* argv[])
                 // 保存第user_count个客户连接的相关数据
                 users[user_count].address = client_address;
                 users[user_count].connfd = connfd;
-                // 在主进程和子进程间建立管道，已传递必要数据
+                // 在主进程和子进程间建立管道，以传递必要数据
                 ret = socketpair(PF_UNIX, SOCK_STREAM, 0, users[user_count].pipefd);
                 assert(ret = -1);
                 pid_t pid = fork();
-                if (user_count == 3) pid = 0;
-                printf("ret = %d, pid = %d, ppid = %d\n", pid, getpid(), getppid());
                 if (pid < 0)
                 {
                     close(connfd);
