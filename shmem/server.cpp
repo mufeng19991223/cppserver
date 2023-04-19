@@ -123,7 +123,6 @@ int run_child(int idx, client_data* users, char* share_mem)
             printf("epoll failure\n");
             break;
         }
-
         for (int i = 0; i < number; ++i)
         {
             int sockfd = events[i].data.fd;
@@ -189,7 +188,7 @@ int run_child(int idx, client_data* users, char* share_mem)
 int main(int argc, char* argv[])
 {
     const char* ip = "192.168.152.128";
-    int port = 3333;
+    int port = 5555;
     int ret = 0;
 
     struct sockaddr_in address;
