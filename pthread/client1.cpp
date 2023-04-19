@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 
     CHECK_RET(tp.Connect(ip, port));
 
-    char buf1[1024] = "GET http://localhost/baidu.com HTTP/1.1\r\nHost:hello\r\n";
+    char buf1[1024] = "../pthread/lock.h\r\n";
     CHECK_RET(tp.Send(tp.GetFd(), buf1));
 
     char buf2[1024] = { 0 };

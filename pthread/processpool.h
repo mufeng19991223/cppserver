@@ -17,7 +17,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
-// 子进程类  参数 子进程pid  父子进程通信管道
+// 子进程类  参数 1.子进程pid  2.父子进程通信管道
 class process
 {
 public:

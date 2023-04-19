@@ -76,6 +76,7 @@ public:
                 m_buf[idx - 1] = '\0';
 
                 char* file_name = m_buf;
+
                 // 判断客户要运行的CGI程序是否存在
                 if (access(file_name, F_OK) == -1)
                 {
@@ -84,6 +85,7 @@ public:
                 }
                 // 创建子进程来执行CGI程序
                 ret = fork();
+                printf("client recv");
                 if (ret == -1)
                 {
                     removefd(m_epollfd, m_sockfd);
