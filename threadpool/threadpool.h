@@ -3,7 +3,6 @@
 
 #include <list>
 #include <stdio.h>
-#include <execption>
 #include <pthread.h>
 #include "locker.h"
 
@@ -26,7 +25,7 @@ private:
 
 private:
     int m_thread_number;            // 线程池中的线程数
-    int m_max_request;              // 请求队列中允许的最大请求数
+    int m_max_requests;              // 请求队列中允许的最大请求数
     pthread_t* m_threads;           // 描述线程池的数组，大小为m_thread_number;
     std::list<T*> m_workqueue;      // 请求队列
     locker m_queuelocker;           // 保护请求队列的互斥锁
@@ -38,11 +37,11 @@ private:
 template <typename T>
 threadpool<T>::threadpool(int thread_number, int max_requests) :
     m_thread_number(thread_number), 
-    m_max_request(max_requests), 
+    m_max_requests(max_requests), 
     m_stop(false),
-    m_thread(NULL)
+    m_threads(NULL)
 {
-    if ((thread_number < 0) || (max_requests <= 0))
+    if ((thread_number <= 0) || (max_requests <= 0))
     {
         throw std::exception();
     }
@@ -78,8 +77,9 @@ threadpool<T>::~threadpool()
 }
 
 template <typename T>
-bool thread<T>::append(T* request)
+bool threadpool<T>::append(T* request)
 {
+    // 操作工作队列要加锁，因为它被所有线程共享
     m_queuelocker.lock();
     if (m_workqueue.size() > m_max_requests)
     {

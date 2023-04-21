@@ -23,8 +23,11 @@
 class http_conn
 {
 public:
+    // 文件名的最大长度
     static const int FILENAME_LEN = 200;
+    // 读缓冲区的大小
     static const int READ_BUFFER_SIZE = 2048;
+    // 写缓冲区的大小
     static const int WRITE_BUFFER_SIZE = 1024;
 
     enum METHOD
@@ -61,7 +64,7 @@ public:
         NO_REQUEST,                   // 请求不完整
         GET_REQUEST,                  // 表示获得了一个完整的客户请求
         BAD_REQUEST,                  // 客户请求有语法错误
-        NO_RESOUCE,                   // 未找到资源
+        NO_RESOURCE,                  // 未找到资源
         FORBIDDEN_REQUEST,            // 客户对资源没有足够的访问权限
         FILE_REQUEST,                 // 文件请求
         INTERNAL_ERROR,               // 服务器内部错误
@@ -69,14 +72,15 @@ public:
     };
 
 public:
-    http_conn();
-    ~http_conn();
+    http_conn() {};
+    ~http_conn() {};
 
 public:
     // 初始化新接受的连接
     void init(int sockfd, const sockaddr_in& addr);
     void close_conn(bool read_close = true);
     void process();
+    // 非阻塞读写操作
     bool read();
     bool write();
 
@@ -101,7 +105,7 @@ private:
     bool add_response(const char* format, ...);
     bool add_content(const char* content);
     bool add_status_line(int status, const char* title);
-    bool add_headers(int content_length);
+    void add_headers(int content_length);
     bool add_content_length(int content_length);
     bool add_linger();
     bool add_blank_line();
@@ -156,4 +160,6 @@ private:
     int m_iv_count;
     
 };
+
+
 #endif
