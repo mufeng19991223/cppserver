@@ -65,19 +65,19 @@ public:
     }
 
 
-    // bool Connect(const char* ip, uint16_t port)
-    // {
-    //     struct sockaddr_in addr;
-    //     addr.sin_family = AF_INET;
-    //     addr.sin_port = htons(port);
-    //     addr.sin_addr.s_addr = inet_addr(ip);
-    //     if (connect(this->_sockfd, (struct sockaddr*)&addr, sizeof(addr)) < 0)
-    //     {
-    //         printf("Connect Error\n");
-    //         return false;
-    //     }
-    //     return true;
-    // }
+    bool Connect(const char* ip, uint16_t port)
+    {
+        struct sockaddr_in addr;
+        addr.sin_family = AF_INET;
+        addr.sin_port = htons(port);
+        addr.sin_addr.s_addr = inet_addr(ip);
+        if (connect(this->_sockfd, (struct sockaddr*)&addr, sizeof(addr)) < 0)
+        {
+            printf("Connect Error\n");
+            return false;
+        }
+        return true;
+    }
 
     int Recv(int connfd, char* buf)
     {
